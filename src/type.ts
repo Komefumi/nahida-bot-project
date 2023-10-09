@@ -7,13 +7,15 @@ import {
 
 export enum CommandNameEnum {
   SALAAM = "salaam",
+  KITAAB = "kitaab",
 }
 
 export type CommandInteractionHandler = (
   interaction: CommandInteraction
-) => Promise<void>;
+) => void;
 
 export type CommandConfig = {
+  name: CommandNameEnum;
   data: SlashCommandBuilder;
   execute: CommandInteractionHandler;
 };

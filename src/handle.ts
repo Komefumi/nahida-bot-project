@@ -1,14 +1,19 @@
-import { Client, Collection, Routes } from "discord.js";
+import { Client, Collection, CommandInteraction, Routes } from "discord.js";
 import commandList from "./command";
 import { MyClient } from "./type";
 import { discordREST } from "./util";
 
-const { CLIENT_ID, BOT_TOKEN } = process.env;
-
 export async function handleSaveSlashCommandList(client: MyClient) {
   client.commands = new Collection();
   commandList.forEach((command) => {
-    client.commands.set(command.data.name, command.execute);
+    const executor = (interaction: CommandInteraction) => {
+      try {
+        command.execute(interaction);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    client.commands.set(command.data.name, executor);
   });
 }
 
