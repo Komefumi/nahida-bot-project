@@ -10,6 +10,11 @@ export enum CommandNameEnum {
   KITAAB = "kitaab",
 }
 
+export enum KitaabSubEnum {
+  LIST = "list",
+  ADD = "add",
+}
+
 export type CommandInteractionHandler = (
   interaction: CommandInteraction
 ) => void;
