@@ -11,8 +11,13 @@ export enum CommandNameEnum {
 }
 
 export enum KitaabSubEnum {
-  LIST = "list",
-  ADD = "add",
+  LIST_BOOKS = "list-books",
+  ADD_BOOK = "add-book",
+  DELETE_BOOK = "delete-book",
+
+  LIST_TAGS = "list-tags",
+  ADD_TAG = "add-tag",
+  DELETE_TAG = "delete-tag",
 }
 
 export type CommandInteractionHandler = (

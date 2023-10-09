@@ -21,12 +21,12 @@ export default [
       .addSubcommand((subcommand) =>
         subcommand
 
-          .setName(KitaabSubEnum.LIST)
+          .setName(KitaabSubEnum.LIST_BOOKS)
           .setDescription("List Books | کتابوں کی فہروت بنایٔں")
       )
       .addSubcommand((subcommand) =>
         subcommand
-          .setName(KitaabSubEnum.ADD)
+          .setName(KitaabSubEnum.ADD_BOOK)
           .setDescription("Add Book | کتاب شامل کریں")
           // TODO: Validation incluing string length
           .addStringOption((option) =>
@@ -45,10 +45,10 @@ export default [
     async execute(interaction: ChatInputCommandInteraction) {
       const subName = interaction.options.getSubcommand();
       switch (subName as KitaabSubEnum) {
-        case KitaabSubEnum.LIST: {
+        case KitaabSubEnum.LIST_BOOKS: {
           await interaction.reply("Listing books");
         }
-        case KitaabSubEnum.ADD: {
+        case KitaabSubEnum.ADD_BOOK: {
           const name = interaction.options.getString("book_name");
           const location = interaction.options.getString("book_location");
           await interaction.reply(`${name} - ${location}`);
