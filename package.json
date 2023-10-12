@@ -5,7 +5,8 @@
   "scripts": {
     "start:prod": "npx build && node build/index.js",
     "start:dev": "npx nodemon",
-    "build": "rimraf ./build && tsc"
+    "build": "rimraf ./build && tsc",
+    "gen:translation-base": "ts-node scripts/generate-translation-base.ts"
   },
   "license": "MIT",
   "devDependencies": {
@@ -17,7 +18,9 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@prisma/client": "5.4.2",
     "discord.js": "^14.13.0",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "prisma": "^5.4.2"
   }
 }

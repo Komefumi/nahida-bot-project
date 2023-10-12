@@ -1,0 +1,14 @@
+{
+  "description": {
+    "books": "",
+    "list_books": "",
+    "add_book": "",
+    "book_name": "",
+    "book_description": "",
+    "book_tags": "",
+    "book_link": "",
+    "add_tag": "",
+    "tag_name": "",
+    "tag_description": ""
+  }
+}

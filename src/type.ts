@@ -20,6 +20,18 @@ export enum KitaabSubEnum {
   DELETE_TAG = "delete-tag",
 }
 
+export enum KitaabAddOptionEnum {
+  BOOK_NAME = "book_name",
+  BOOK_DESCRIPTION = "book_description",
+  BOOK_TAGS = "book_tags",
+  BOOK_LINK = "book_link",
+}
+
+export enum KitaabWasfAddOptionEnum {
+  TAG_NAME = "tag_name",
+  TAG_DESCRIPTION = "tag_description",
+}
+
 export type CommandInteractionHandler = (
   interaction: CommandInteraction
 ) => void;

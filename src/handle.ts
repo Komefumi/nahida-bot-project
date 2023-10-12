@@ -1,16 +1,24 @@
-import { Client, Collection, CommandInteraction, Routes } from "discord.js";
+import { Collection, CommandInteraction, Routes } from "discord.js";
 import commandList from "./command";
 import { MyClient } from "./type";
 import { discordREST } from "./util";
+import { BaseError, UnexpectedError } from "./error";
 
 export async function handleSaveSlashCommandList(client: MyClient) {
   client.commands = new Collection();
   commandList.forEach((command) => {
-    const executor = (interaction: CommandInteraction) => {
+    const executor = async (interaction: CommandInteraction) => {
       try {
         command.execute(interaction);
       } catch (error) {
-        console.error(error);
+        if (error instanceof BaseError) {
+          await interaction.reply(error.message);
+        }
+        if (error instanceof UnexpectedError) {
+          console.error(error.originalError);
+        } else {
+          console.error(error);
+        }
       }
     };
     client.commands.set(command.data.name, executor);
