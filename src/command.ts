@@ -1,4 +1,9 @@
-import { ChatInputCommandInteraction } from "discord.js";
+import {
+  ChatInputCommandInteraction,
+  hyperlink,
+  bold,
+  PermissionsBitField,
+} from "discord.js";
 import {
   CommandConfig,
   CommandNameEnum,
@@ -18,7 +23,6 @@ import {
   AlreadyExistsError,
   ArgumentNotProvidedError,
   ArgumentModelNotFoundError,
-  UnexpectedError,
   UnknownCommandError,
 } from "./error";
 import { Prisma } from "@prisma/client";
@@ -115,7 +119,34 @@ export default [
           break;
         }
         case KitaabSubEnum.LIST_BOOKS: {
-          await interaction.reply("Listing books");
+          const bookList = await prisma.book.findMany({
+            include: {
+              tags: true,
+            },
+          });
+          let isAdmin = false;
+          if (
+            interaction.memberPermissions?.has(
+              PermissionsBitField.Flags.Administrator
+            )
+          ) {
+            isAdmin = true;
+          }
+
+          const lineList = bookList.map((item, idx) => {
+            const tagString = item.tags.map((tag) => tag.name).join(",");
+            const link = hyperlink(item.name, item.link);
+            const line = `${idx + 1}: ${link} ${
+              isAdmin ? "(ID: " + item.ID + ")" : ""
+            } (${tagString})`;
+            return line;
+          });
+
+          const title = bold(`Books | ${td.books}`);
+          const response = `${title}\n\n${lineList.join("\n")}`;
+
+          await interaction.reply(response);
+
           break;
         }
         case KitaabSubEnum.ADD_BOOK: {
